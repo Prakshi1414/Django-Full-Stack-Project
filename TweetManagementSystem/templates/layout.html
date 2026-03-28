@@ -34,11 +34,19 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- CENTER: Search Bar -->
-          <form class="d-flex mx-auto" role="search" style="width: 40%">
+          <form
+            class="d-flex mx-auto"
+            role="search"
+            method="GET"
+            action="{% url 'tweet_list' %}"
+            style="width: 40%"
+          >
             <input
               class="form-control me-2"
               type="search"
-              placeholder="Search"
+              placeholder="Search by username"
+              name="q"
+              value="{{ request.GET.q|default:'' }}"
             />
             <button class="btn btn-outline-success" type="submit">
               Search

@@ -3,6 +3,8 @@ from .models import Tweet
 from .forms import TweetForm , UserregistrationForm
 from django.contrib.auth.decorators import login_required  #use for protected route
 from django.contrib.auth import login
+from django.db.models import Q
+from django.contrib.auth.models import User
 
 from django.shortcuts import get_object_or_404, redirect
 
@@ -10,10 +12,17 @@ from django.shortcuts import get_object_or_404, redirect
 def index(request):
     return render(request, 'index.html')
 
-#list all tweets in one page
 def tweet_list(request):
-   tweets= Tweet.objects.all().order_by('-created_at')
-   return render(request, 'tweet_list.html', {'tweets':tweets})
+    query = request.GET.get('q')  # search term from navbar
+    if query:
+        # Filter tweets where user__username matches query (case-insensitive)
+        tweets = Tweet.objects.filter(
+            user__username__icontains=query
+        ).order_by('-created_at')
+    else:
+        tweets = Tweet.objects.all().order_by('-created_at')
+    
+    return render(request, 'tweet_list.html', {'tweets': tweets})
 
 @login_required #create decorater so only login user an create tweet
 def tweet_create(request):
