@@ -1,9 +1,82 @@
-{% extends "layout.html" %} 
+{% extends "layout.html" %}
+
 {% block content %}
-<form class="mt-10" method="post">
-  {% csrf_token %} {{form.as_p}}
-  <button class="btn btn-primary">Register</button>
-</form>
-<p>Do you have any account? <a href="{% url 'login'%}">Login Here </a></p>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+
+  <div class="form-box p-4">
+
+    <h3 class="text-center mb-4">Create Account</h3>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <!-- Username -->
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        {{ form.username }}
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        {{ form.email }}
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        {{ form.password1 }}
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-3">
+        <label class="form-label">Confirm Password</label>
+        {{ form.password2 }}
+      </div>
+
+      <button class="btn btn-primary w-100 mt-2">
+        Register
+      </button>
+    </form>
+
+    <p class="text-center mt-3 mb-0">
+      Already have an account?
+      <a href="{% url 'login' %}">Login</a>
+    </p>
+
+  </div>
+
+</div>
+
+<style>
+  .form-box {
+    width: 400px;
+    background: #1e1e2f; /* dark card */
+    border: 1px solid #2c2c3a;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    color: white;
+  }
+
+  .form-box input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #2a2a3b;
+    color: white;
+  }
+
+  .form-box input:focus {
+    border-color: #0d6efd;
+    outline: none;
+  }
+
+  .form-box label {
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+</style>
 
 {% endblock %}

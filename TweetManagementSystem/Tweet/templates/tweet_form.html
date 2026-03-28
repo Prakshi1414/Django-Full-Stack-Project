@@ -1,18 +1,35 @@
-{% extends "layout.html" %}
-
-{% block title %}
-Tweet App{% endblock %}
-
+{% extends "layout.html" %} {% block title %} Tweet App {% endblock %} 
 {% block content %}
-<h1 class="text-center mt-4">Welcome to Tweet App </h1>
-<h2>{%if form.instance.pk %}Edit Tweet{% else %} Create Tweet {%endif%}
-
-<form method="post" enctype="multipart/form-data" class="form">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button class-"btn btn-warning bg-yellow" type="submit">Submit</button>
-</form>
-<a href="{%url 'tweet_list'%}"> Back To Tweet List
-</a>
-</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <!-- Card for form -->
+      <div class="card shadow-sm">
+        <div class="card-header text-center bg-primary text-white">
+          <h3>
+            {% if form.instance.pk %}Edit Tweet{% else %}Create Tweet{% endif %}
+          </h3>
+        </div>
+        <div class="card-body">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %} {{ form.as_p }}
+            <div class="text-center">
+              <button class="btn btn-warning px-4 py-2" type="submit">
+                {% if form.instance.pk %}Update{% else %}Submit{% endif %}
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-center">
+          <a
+            href="{% url 'tweet_list' %}"
+            class="text-decoration-none text-primary"
+          >
+            &larr; Back To Tweet List
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -32,7 +32,7 @@ def tweet_create(request):
 def tweet_edit(request , tweet_id):
     tweet = get_object_or_404(Tweet,pk=tweet_id, user=request.user)
     if request.method=='POST':
-       form = TweetForm(request.Post ,request.FILES,instance=tweet)
+       form = TweetForm(request.POST ,request.FILES,instance=tweet)
        if form.is_valid():# only login user can create post
          tweet = form.save(commit=False)
          tweet.user = request.user

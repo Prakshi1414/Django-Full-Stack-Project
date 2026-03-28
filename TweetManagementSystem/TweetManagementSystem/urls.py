@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.auth.urls import views as auth_views
 
 urlpatterns = [
+    path('', include('Tweet.urls')),
     path('admin/', admin.site.urls),
      path('tweet/', include('Tweet.urls')),
      path('accounts/', include('django.contrib.auth.urls')),

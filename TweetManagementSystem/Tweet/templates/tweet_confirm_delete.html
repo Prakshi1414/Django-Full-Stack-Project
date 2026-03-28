@@ -1,11 +1,22 @@
-{% extends "layout.html" %} {% block title %} Tweet App {% endblock %}
- {% block content %}
-<div>
-  <h1 class="text-center mt-4">Do you really want to delete this Tweet ?</h1>
-  <form method="post">
-    {% csrf_token%}
-    <button class="btn btn-danger">Delete</button>
-    <a href="{% url 'tweet_list'%}" class="btn btn-sucess ">Cancel</a>
-  </form>
+{% extends "layout.html" %} {% block title %} Delete Tweet {% endblock %} 
+{%block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4 text-center">
+        <h3 class="mb-4 text-warning">
+          Do you really want to delete this Tweet?
+        </h3>
+
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger me-2 px-4">Delete</button>
+          <a href="{% url 'tweet_list' %}" class="btn btn-secondary px-4"
+            >Cancel</a
+          >
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
