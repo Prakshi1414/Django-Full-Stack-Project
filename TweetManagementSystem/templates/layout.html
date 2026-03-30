@@ -26,8 +26,8 @@
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#sidebarMenu"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -74,6 +74,47 @@
         </div>
       </div>
     </nav>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <!-- 🔍 Search Bar -->
+        <form class="d-flex mb-3" method="GET" action="{% url 'tweet_list' %}">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search by username"
+            name="q"
+            value="{{ request.GET.q|default:'' }}"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <!-- 🔘 Buttons -->
+        <div class="d-grid gap-2">
+          <a href="{% url 'tweet_list' %}" class="btn btn-primary">
+            Tweet Home
+          </a>
+
+          {% if user.is_authenticated %}
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="btn btn-danger w-100" type="submit">Logout</button>
+          </form>
+          {% else %}
+          <a href="{% url 'register' %}" class="btn btn-primary"> Register </a>
+          <a href="{% url 'login' %}" class="btn btn-success"> Login </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
     <div class="container">{% block content %} {% endblock %}</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
