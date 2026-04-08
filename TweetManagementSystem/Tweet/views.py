@@ -39,18 +39,18 @@ def tweet_create(request):
     return render(request, 'tweet_form.html', {'form':form})
 
 @login_required
-def tweet_edit(request , tweet_id):
-    tweet = get_object_or_404(Tweet,pk=tweet_id, user=request.user)
-    if request.method=='POST':
-       form = TweetForm(request.POST ,request.FILES,instance=tweet)
-       if form.is_valid():# only login user can create post
-         tweet = form.save(commit=False)
-         tweet.user = request.user
-         tweet.save()
-         return redirect('tweet_list')
+def tweet_edit(request, tweet_id):
+    tweet = get_object_or_404(Tweet, pk=tweet_id)
+
+    if request.method == 'POST':
+        form = TweetForm(request.POST, request.FILES, instance=tweet)
+        if form.is_valid():
+            form.save()
+            return redirect('tweet_list')
     else:
-     form =  TweetForm(instance=tweet)
-     return render(request, 'tweet_form.html', {'form':form})
+        form = TweetForm(instance=tweet)
+
+    return render(request, 'tweet_form.html', {'form': form})
 
 @login_required
 def tweet_delete(request , tweet_id):
