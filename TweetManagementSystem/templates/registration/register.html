@@ -1,15 +1,16 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
 
-{% block content %}
-
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
-
+<div
+  class="container d-flex justify-content-center align-items-center"
+  style="min-height: 90vh"
+>
   <div class="form-box p-4">
-
     <h3 class="text-center mb-4">Create Account</h3>
 
     <form method="post">
-      {% csrf_token %}
+      {% csrf_token %} {% if form.errors %}
+      <div style="color: red; margin-bottom: 10px">{{ form.errors }}</div>
+      {% endif %}
 
       <!-- Username -->
       <div class="mb-3">
@@ -35,18 +36,14 @@
         {{ form.password2 }}
       </div>
 
-      <button class="btn btn-primary w-100 mt-2">
-        Register
-      </button>
+      <button class="btn btn-primary w-100 mt-2">Register</button>
     </form>
 
     <p class="text-center mt-3 mb-0">
       Already have an account?
       <a href="{% url 'login' %}">Login</a>
     </p>
-
   </div>
-
 </div>
 
 <style>
@@ -55,7 +52,7 @@
     background: #1e1e2f; /* dark card */
     border: 1px solid #2c2c3a;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     color: white;
   }
 

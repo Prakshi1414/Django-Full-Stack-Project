@@ -9,6 +9,9 @@
 
     <form method="post">
       {% csrf_token %}
+      {% if form.errors %}
+      <div style="color: red">Invalid username or password</div>
+      {% endif %}
 
       <!-- Username -->
       <div class="mb-3">

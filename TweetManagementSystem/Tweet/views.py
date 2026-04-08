@@ -4,6 +4,7 @@ from .forms import TweetForm , UserregistrationForm
 from django.contrib.auth.decorators import login_required  #use for protected route
 from django.contrib.auth import login
 from django.db.models import Q
+from django.contrib import messages
 from django.contrib.auth.models import User
 
 from django.shortcuts import get_object_or_404, redirect
@@ -62,14 +63,18 @@ def tweet_delete(request , tweet_id):
 def register(request):
     if request.method == 'POST':
         form = UserregistrationForm(request.POST)
+        
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
             user.save()
             login(request, user)
             return redirect('tweet_list')
+        else:
+            messages.error(request, "Form is invalid. Check details.")
+
     else:
-        form = UserregistrationForm()   # yaha POST nahi dena
+        form = UserregistrationForm()
 
     return render(request, 'registration/register.html', {'form': form})
    
